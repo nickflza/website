@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import '@fontsource/jetbrains-mono';
+
+@theme {
+  --font-sans: 'JetBrains Mono';
+}
+
+#social-logo {
+    -webkit-filter:invert(1);
+}
