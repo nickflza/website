@@ -1,4 +1,4 @@
-// Hello Traveller! This code does not have any useful purpose and it's not even mentioned in any part of the website's source code.
+// Hello Traveller!
 // This javascript file is here as a hidden letter that will expose my feelings for a certain person
 // [redacted], i spent the best moments in my life with you by my side and i'm so thankful for that, but i don't like the way our friendship ended
 // i am aware that my behavior would've not made things any better but we could've talked it out together and fixed anything that made me or you uncomfortable
