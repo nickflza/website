@@ -1,0 +1,30 @@
+---
+interface Props {
+    href?: string;
+    class?: string;
+    type?: 'button' | 'submit' | 'reset';
+    [x: string]: any;
+}
+
+const { 
+    href, 
+    class: className = '', 
+    type = 'button',
+    ...rest 
+} = Astro.props;
+
+const primaryStyles = "bg-neutral-950 text-white border border-white/20 hover:bg-neutral-900 hover:border-white/40 shadow-lg shadow-neutral-950/50";
+const baseStyles = "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-base font-semibold transition-all cursor-pointer select-none";
+
+const combinedStyles = `${baseStyles} ${primaryStyles} ${className}`;
+---
+
+{href ? (
+    <a href={href} class={combinedStyles} {...rest}>
+        <slot />
+    </a>
+) : (
+    <button type={type} class={combinedStyles} {...rest}>
+        <slot />
+    </button>
+)}
