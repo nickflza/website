@@ -1,0 +1,23 @@
+---
+interface Props {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  id?: string;
+  [key: string]: any;
+}
+
+const { level, id, ...attrs } = Astro.props;
+const Tag = `h${level}` as any;
+
+const headingId = id || `heading-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<Tag id={headingId} class="group relative" {...attrs}>
+  <slot />
+  <a 
+    href={`#${headingId}`} 
+    class="anchor-link ml-2 px-1 bg-red-500 text-white rounded no-underline font-normal"
+    aria-label="Link a questa sezione"
+  >
+    #
+  </a>
+</Tag>

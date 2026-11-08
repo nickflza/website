@@ -1,32 +1,22 @@
 ---
-import Main from "../layouts/main.astro";
-import TelegramLogo from "../../public/social/telegram.svg";
-import GithubLogo from "../../public/social/github.svg";
-import MailLogo from "../../public/social/mail.svg";
+import Layout from "../layouts/Layout.astro";
+import Contact from "../components/personal/Contact.astro";
 ---
 
-<Main>
-    <div class="flex flex-col items-center justify-center text-center">
-        <h1 class="py-4 font-bold text-xl">contact me</h1>
-        <div class="flex flex-row gap-6 items-center">
-            <a href="https://t.me/nckflza" class="flex flex-col items-center font-bold hover:underline">
-                <TelegramLogo id="social-logo" width={64} />
-                <span class="py-2">telegram</span>
-            </a>
-            <a
-                href="https://github.com/nickflza"
-                class="flex flex-col items-center font-bold hover:underline"
+<Layout>
+    <div class="flex flex-col items-center py-12 px-4">
+        <div class="flex flex-col items-center text-center max-w-lg">
+            <h1
+                class="text-4xl md:text-5xl font-black tracking-tight text-white"
             >
-                <GithubLogo id="social-logo" width={64} />
-                <span class="py-2">github</span>
-            </a>
-            <a
-                href="mailto:nicolo.falza@gmail.com"
-                class="flex flex-col items-center font-bold hover:underline"
-            >
-                <MailLogo id="social-logo" width={64} />
-                <span class="py-2">mail</span>
-            </a>
+                find me elsewhere
+            </h1>
+
+            <p class="text-lg md:text-xl text-neutral-300 pt-4 leading-relaxed">
+                you can reach me by using one of the options below.
+            </p>
         </div>
+        
+        <Contact />
     </div>
-</Main>
+</Layout>

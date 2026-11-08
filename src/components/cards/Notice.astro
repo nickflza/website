@@ -1,0 +1,99 @@
+---
+interface Props {
+    type?: 'amber' | 'red' | 'emerald' | 'fuchsia' | 'indigo';
+    title: string;
+    isOpenDefault?: boolean;
+}
+
+const { type = 'amber', title, isOpenDefault = true } = Astro.props;
+
+const styles = {
+    amber: {
+        border: 'border-amber-500/30',
+        bg: 'bg-amber-500/10',
+        textMain: 'text-amber-400',
+        textBody: 'text-amber-200/90',
+        hover: 'hover:bg-amber-500/5',
+        borderInner: 'border-amber-500/20'
+    },
+    red: {
+        border: 'border-red-500/30',
+        bg: 'bg-red-500/10',
+        textMain: 'text-red-400',
+        textBody: 'text-red-200/90',
+        hover: 'hover:bg-red-500/5',
+        borderInner: 'border-red-500/20'
+    },
+    emerald: {
+        border: 'border-emerald-500/30',
+        bg: 'bg-emerald-500/10',
+        textMain: 'text-emerald-400',
+        textBody: 'text-emerald-200/90',
+        hover: 'hover:bg-emerald-500/5',
+        borderInner: 'border-emerald-500/20'
+    },
+    fuchsia: {
+        border: 'border-fuchsia-500/30',
+        bg: 'bg-fuchsia-500/10',
+        textMain: 'text-fuchsia-400',
+        textBody: 'text-fuchsia-200/90',
+        hover: 'hover:bg-fuchsia-500/5',
+        borderInner: 'border-fuchsia-500/20'
+    },
+    indigo: {
+        border: 'border-indigo-500/30',
+        bg: 'bg-indigo-500/10',
+        textMain: 'text-indigo-400',
+        textBody: 'text-indigo-200/90',
+        hover: 'hover:bg-indigo-500/5',
+        borderInner: 'border-indigo-500/20'
+    }
+}[type];
+
+const initialGridRows = isOpenDefault ? '1fr' : '0fr';
+const initialRotate = isOpenDefault ? 'rotate(180deg)' : 'rotate(0deg)';
+---
+
+<div class:list={["alert-card mb-6 rounded-xl border overflow-hidden", styles.border, styles.bg, styles.textBody]} role="alert">
+    <button 
+        type="button" 
+        class:list={["alert-toggle w-full flex items-center justify-between gap-3 p-4 cursor-pointer select-none transition-colors text-left", styles.hover]}
+    >
+        <div class="flex items-center gap-3">
+            <slot name="icon" />
+            <span class:list={["font-semibold", styles.textMain]}>{title}</span>
+        </div>
+        
+        <svg class:list={["alert-icon shrink-0 transition-transform duration-300 ease-in-out", styles.textMain]} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style={`transform: ${initialRotate};`}>
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+    
+    <div class="alert-content grid transition-all duration-300 ease-in-out" style={`grid-template-rows: ${initialGridRows};`}>
+        <div class="overflow-hidden">
+            <div class:list={["px-4 pb-4 pt-4 text-sm opacity-90 border-t", styles.borderInner]}>
+                <slot />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.alert-card').forEach((card) => {
+        const toggle = card.querySelector('.alert-toggle');
+        const content = card.querySelector('.alert-content') as HTMLElement;
+        const icon = card.querySelector('.alert-icon') as HTMLElement;
+
+        toggle?.addEventListener('click', () => {
+            const isOpen = content.style.gridTemplateRows === '1fr';
+            
+            if (isOpen) {
+                content.style.gridTemplateRows = '0fr';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.gridTemplateRows = '1fr';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    });
+</script>

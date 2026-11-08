@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+import Notice from '../cards/Notice.astro';
+
+interface Props {
+    pubDate: Date;
+    updatedDate?: Date;
+}
+
+const { pubDate, updatedDate } = Astro.props;
+const targetDate = updatedDate || pubDate;
+
+const today = new Date();
+const oneYearInMs = 365 * 24 * 60 * 60 * 1000;
+const isOlderThanOneYear = (today.getTime() - new Date(targetDate).getTime()) > oneYearInMs;
+---
+
+{isOlderThanOneYear && (
+    <Notice 
+        type="amber" 
+        title={`Warning`}
+        isOpenDefault={true}
+    >
+        <Fragment slot="icon">
+            <Icon size={20} name="mdi:alert-circle-outline" class="shrink-0 text-amber-400" />
+        </Fragment>
+        This article has been published more than a year ago. ({targetDate.toLocaleDateString()}) The information contained in this article may be outdated.
+    </Notice>
+)}

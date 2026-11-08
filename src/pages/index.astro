@@ -1,11 +1,37 @@
 ---
-import Main from "../layouts/main.astro";
-import Logo from "../../public/logo.svg";
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import ProfilePic from "../assets/pfp.png";
+import LatestPost from "../components/LatestPost.astro";
 ---
-<Main>
-	<div class="flex flex-col items-center text-wrap text-center">
-		<Logo width={"160px"}/>
-		<h1 class="py-4 font-bold text-xl">hello, i'm nick</h1>
-		<p>i go by the alias FLZA, i'm a nerd that likes music, rhythm games, programming, selfhosting and lots of other cool stuff.</p>
-	</div>
-</Main>
+
+<Layout>
+    <div class="flex flex-col items-center py-12 px-4">
+        
+        <div class="flex flex-col items-center text-center">
+            <div class="relative group mb-6">
+                <div class="absolute -inset-1.5 rounded-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 opacity-50 blur-xl group-hover:opacity-80 transition duration-500"></div>
+                
+                <div class="relative w-40 h-40 rounded-full overflow-hidden border-2 border-purple-500/40 shadow-2xl">
+                    <Image
+                        src={ProfilePic}
+                        alt="Profile Picture"
+                        class="w-full h-full object-cover"
+                        width={200}
+                        height={200}
+                    />
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
+                hello <span class="text-fuchsia-400">:3</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-neutral-300 max-w-lg pt-4 leading-relaxed">
+                i'm nick, and this is my corner of the internet.
+            </p>
+        </div>
+
+        <LatestPost />
+    </div>
+</Layout>

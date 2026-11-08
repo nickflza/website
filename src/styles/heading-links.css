@@ -1,0 +1,86 @@
+@layer utilities {
+  .satteri-heading-link {
+    display: block !important;
+    margin-block: 1.5rem 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: inherit;
+  }
+
+  .satteri-heading-link--h1 { font-size: 2em; }
+  .satteri-heading-link--h2 { font-size: 1.5em; }
+  .satteri-heading-link--h3 { font-size: 1.25em; }
+  .satteri-heading-link--h4 { font-size: 1em; }
+  .satteri-heading-link--h5 { font-size: 0.875em; }
+  .satteri-heading-link--h6 { font-size: 0.85em; }
+
+  .satteri-heading-link > .satteri-heading-link__heading {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    scroll-margin-block-start: 1.5rem;
+    color: inherit;
+    font: inherit;
+  }
+
+  .satteri-heading-link__link {
+    display: inline !important;
+    white-space: nowrap !important;
+    margin-inline-start: 0.3em;
+    color: currentColor;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    text-decoration: none !important;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: baseline !important; 
+  }
+
+  .satteri-heading-link__icon {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle !important;
+    width: 0.75em;
+    height: 0.75em;
+    color: currentColor;
+    position: relative;
+    top: -0.05em; 
+  }
+
+  .satteri-heading-link__icon > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .satteri-heading-link__link {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .satteri-heading-link:hover .satteri-heading-link__link,
+    .satteri-heading-link__link:focus-visible {
+      opacity: 1;
+    }
+
+    .satteri-heading-link__link:hover {
+      color: #9ca3af;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .satteri-heading-link__link {
+      opacity: 1 !important;
+    }
+  }
+
+  .satteri-heading-link__link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}

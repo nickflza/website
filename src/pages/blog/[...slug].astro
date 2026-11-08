@@ -1,0 +1,79 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import BlogPostImage from "../../components/mdx/BlogPostImage.astro";
+import { getMinutesRead } from "../../utils/readingTime";
+import PostOutdatedNotice from "../../components/blog/PostOutdatedNotice.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => {
+        const slug = post.id.split("/")[0];
+
+        return {
+            params: { slug },
+            props: { post },
+        };
+    });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const readingTime = await getMinutesRead(post);
+---
+
+<Layout>
+    <div>
+        {
+            post.data.image && (
+                <div class="w-full h-72 md:h-96 overflow-hidden rounded-xl border border-neutral-800 mb-6 shadow-lg">
+                    <Image
+                        src={post.data.image}
+                        alt={post.data.title}
+                        class="w-full h-full object-cover"
+                    />
+                </div>
+            )
+        }
+        <h1 class="text-3xl font-bold pb-4">{post.data.title}</h1>
+        <p class="text-xl italic pb-4">{post.data.description}</p>
+    </div>
+
+    <div class="flex items-center gap-x-3 mb-6">
+        <div class="flex items-center gap-x-1.5">
+            <Icon size={25} name="mdi:calendar" />
+            <p class="text-lg">
+                {post.data.pubDate.toLocaleDateString()}
+            </p>
+        </div>
+
+        <div class="flex items-center gap-x-1.5">
+            <Icon size={25} name="mdi:clock" />
+            <p class="text-lg">
+                {readingTime}
+            </p>
+        </div>
+
+        {
+            post.data.updatedDate && (
+                <div class="flex items-center gap-x-1.5">
+                    <Icon size={25} name="mdi:pencil" />
+                    <p class="text-lg">
+                        {post.data.updatedDate.toLocaleDateString()}
+                    </p>
+                </div>
+            )
+        }
+    </div>
+
+    <PostOutdatedNotice
+        pubDate={post.data.pubDate}
+        updatedDate={post.data.updatedDate}
+    />
+
+    <div class="prose prose-invert max-w-none pb-8">
+        <Content components={{ img: BlogPostImage }} />
+    </div>
+</Layout>

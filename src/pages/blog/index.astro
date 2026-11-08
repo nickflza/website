@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import PostCard from "../../components/blog/PostCard.astro";
+import { getMinutesRead } from "../../utils/readingTime";
+
+const posts = (await getCollection("blog"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const postsWithReadingTime = await Promise.all(
+    posts.map(async (post) => ({
+        ...post,
+        readingTime: await getMinutesRead(post),
+    }))
+);
+---
+
+<Layout>
+    <div class="flex flex-col items-center py-12 px-4">
+        
+        <div class="flex flex-col items-center text-center max-w-lg">
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
+                blog
+            </h1>
+        </div>
+
+        <div class="mt-14 w-full max-w-xl">
+            {postsWithReadingTime.length > 0 ? (
+                <div class="flex flex-col gap-4">
+                    {postsWithReadingTime.map((post) => (
+                        <PostCard post={post} />
+                    ))}
+                </div>
+            ) : (
+                <div class="p-6 rounded-xl border border-neutral-800 bg-neutral-900/70 text-center text-neutral-400 text-base">
+                    Check back soon!
+                </div>
+            )}
+        </div>
+
+    </div>
+</Layout>

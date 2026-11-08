@@ -1,0 +1,28 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+---
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nick's site</title>
+</head>
+<body class="bg-olive-950 text-white min-h-screen flex flex-col">
+    <main class="flex-grow md:w-200 mx-auto pl-8 pr-8 w-full">
+        <Navbar />
+        <div class="animate-fade-in">
+            <slot />
+        </div>
+    </main>
+</body>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap");
+
+    body {
+        font-family: Geist, sans-serif;
+    }
+</style>

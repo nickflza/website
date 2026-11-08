@@ -1,0 +1,80 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface SocialLink {
+    name: string;
+    username: string;
+    icon: string;
+    href: string;
+}
+
+interface Props {
+    links?: SocialLink[];
+}
+
+const defaultLinks: SocialLink[] = [
+    {
+        name: "GitHub",
+        username: "@nickflza",
+        icon: "mdi:github",
+        href: "https://github.com/nickflza"
+    },
+    {
+        name: "Discord",
+        username: "@nickflza",
+        icon: "mdi:discord",
+        href: "https://discord.com/users/1266342027239620628"
+    },
+    {
+        name: "Email",
+        username: "nick@nickflz.com",
+        icon: "mdi:email-outline",
+        href: "mailto:nick@nickflz.com"
+    },
+    {
+        name: "Bluesky",
+        username: "@nickflz.com",
+        icon: "mdi:twitter",
+        href: "https://bsky.app/profile/nickflz.com"
+    },
+    {
+        name: "Telegram",
+        username: "@nickflza",
+        icon: "mdi:telegram",
+        href: "https://t.me/nickflza"
+    }
+];
+
+const { links = defaultLinks } = Astro.props;
+---
+
+<div class="mt-14 w-full max-w-xl">
+    <div class="grid grid-cols-1 gap-4">
+        {links.map((link) => (
+            <a 
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center justify-between p-5 rounded-xl border border-neutral-800 bg-neutral-900/70 text-neutral-200 transition-all duration-200 hover:border-fuchsia-500/40"
+            >
+                <div class="flex items-center gap-4">
+                    <div class="p-3 rounded-xl bg-neutral-950/60 border border-neutral-800 text-neutral-300 group-hover:text-fuchsia-400 transition-colors">
+                        <Icon name={link.icon} class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-fuchsia-300 transition-colors">
+                            {link.name}
+                        </h3>
+                        <p class="text-sm text-neutral-400">
+                            {link.username}
+                        </p>
+                    </div>
+                </div>
+
+                <span class="text-lg text-neutral-500 group-hover:text-fuchsia-400 group-hover:translate-x-1 transition-all">
+                    &rarr;
+                </span>
+            </a>
+        ))}
+    </div>
+</div>

@@ -1,16 +1,4 @@
 @import "tailwindcss";
-@import '@fontsource/jetbrains-mono';
-
-@theme {
-  --font-sans: 'JetBrains Mono';
-}
-
-#social-logo {
-    -webkit-filter:invert(1);
-}
-
-@keyframes pastel {
-  0%   { background-position: 0% }
-  50%  { background-position: 100% }
-  100% { background-position: 0% }
-}
+@import "./heading-links.css";
+@import "./anim.css";
+@plugin "@tailwindcss/typography";

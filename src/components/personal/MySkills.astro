@@ -1,0 +1,85 @@
+---
+import { Icon } from "astro-icon/components";
+
+const languages = [
+    { name: "Python", icon: "mdi:language-python", percentage: 85, color: "text-amber-400", topBorder: "border-t-amber-400", barColor: "bg-amber-400" },
+    { name: "Java", icon: "mdi:language-java", percentage: 70, color: "text-red-400", topBorder: "border-t-red-400", barColor: "bg-red-400" },
+    { name: "Rust", icon: "mdi:language-rust", percentage: 65, color: "text-fuchsia-400", topBorder: "border-t-fuchsia-400", barColor: "bg-fuchsia-400" }
+];
+---
+
+<div class="mt-14 w-full max-w-xl">
+    <h2 class="pb-4 text-3xl font-semibold text-white">
+        Programming Languages
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {languages.map((lang) => (
+            <div class={`skill-card relative flex flex-col justify-between overflow-hidden rounded-xl border border-neutral-800 border-t-2 ${lang.topBorder} bg-neutral-900/70 p-5 text-neutral-200`}>
+                
+                <div class="flex flex-col items-start gap-3 mb-6">
+                    <Icon name={lang.icon} class={`text-3xl shrink-0 ${lang.color}`} width="32" height="32" />
+                    <span class="font-bold text-lg text-white">
+                        {lang.name}
+                    </span>
+                </div>
+
+                <div class="mt-auto">
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="skill-percentage text-base font-bold text-white" data-target={lang.percentage}>
+                            0%
+                        </span>
+                    </div>
+
+                    <div class="w-full bg-neutral-950/60 rounded-full h-1.5 overflow-hidden border border-neutral-800/50">
+                        <div 
+                            class={`skill-progress ${lang.barColor} h-full rounded-full transition-all duration-1000 ease-out`} 
+                            style="width: 0%;" 
+                            data-width={`${lang.percentage}%`}
+                        ></div>
+                    </div>
+                </div>
+
+            </div>
+        ))}
+    </div>
+</div>
+
+<script>
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const progressBar = card.querySelector('.skill-progress') as HTMLElement;
+                const percentageText = card.querySelector('.skill-percentage') as HTMLElement;
+                
+                const targetWidth = progressBar.getAttribute('data-width') || '0%';
+                const targetValue = parseInt(percentageText.getAttribute('data-target') || '0', 10);
+
+                setTimeout(() => {
+                    if (progressBar) progressBar.style.width = targetWidth;
+                }, 100);
+
+                let currentVal = 0;
+                const duration = 1000;
+                const incrementTime = 20;
+                const step = targetValue / (duration / incrementTime);
+
+                const counter = setInterval(() => {
+                    currentVal += step;
+                    if (currentVal >= targetValue) {
+                        currentVal = targetValue;
+                        clearInterval(counter);
+                    }
+                    if (percentageText) percentageText.textContent = Math.round(currentVal) + '%';
+                }, incrementTime);
+
+                observer.unobserve(card);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.skill-card').forEach(card => {
+        observer.observe(card);
+    });
+</script>

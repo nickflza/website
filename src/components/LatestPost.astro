@@ -1,0 +1,27 @@
+---
+import PostCard from './blog/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { getMinutesRead } from "../utils/readingTime";
+
+const posts = await getCollection('blog').catch(() => []);
+const latestPostRaw = posts.sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())[0];
+
+let latestPost = null;
+if (latestPostRaw) {
+    const readingTime = await getMinutesRead(latestPostRaw);
+    latestPost = {
+        ...latestPostRaw,
+        readingTime,
+    };
+}
+---
+
+{latestPost && (
+    <div class="mt-14 w-full max-w-xl">
+        <h2 class="pb-4 text-3xl font-semibold">
+            Latest Post
+        </h2>
+
+        <PostCard post={latestPost} />
+    </div>
+)}
