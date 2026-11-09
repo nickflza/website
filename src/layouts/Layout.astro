@@ -4,7 +4,7 @@ import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
 
-const pageFade = {
+const fade = {
   old: {
     name: "fadeOut",
     duration: "300ms",
@@ -17,6 +17,11 @@ const pageFade = {
     easing: "cubic-bezier(0.22, 1, 0.36, 1)",
     fillMode: "both",
   },
+};
+
+const pageFade = {
+  forwards: fade,
+  backwards: fade,
 };
 ---
 
