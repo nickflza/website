@@ -1,6 +1,18 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
+import { ClientRouter } from "astro:transitions";
+
+const pageFade = {
+  forwards: {
+    old: { name: "fadeOut", duration: "300ms", easing: "ease-in", fillMode: "forwards" },
+    new: { name: "fadeIn", duration: "700ms", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  },
+  backwards: {
+    old: { name: "fadeOut", duration: "300ms", easing: "ease-in", fillMode: "forwards" },
+    new: { name: "fadeIn", duration: "700ms", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  },
+};
 ---
 
 <head>
@@ -9,11 +21,12 @@ import Navbar from "../components/Navbar.astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nick's site</title>
+    <ClientRouter />
 </head>
 <body class="bg-olive-950 text-white min-h-screen flex flex-col">
     <main class="flex-grow md:w-200 mx-auto pl-8 pr-8 w-full">
         <Navbar />
-        <div class="animate-fade-in">
+        <div transition:animate={pageFade}>
             <slot />
         </div>
     </main>
