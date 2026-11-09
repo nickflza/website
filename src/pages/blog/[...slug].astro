@@ -25,55 +25,57 @@ const readingTime = await getMinutesRead(post);
 ---
 
 <Layout>
-    <div>
-        {
-            post.data.image && (
-                <div class="w-full h-72 md:h-96 overflow-hidden rounded-xl border border-neutral-800 mb-6 shadow-lg">
-                    <Image
-                        src={post.data.image}
-                        alt={post.data.title}
-                        class="w-full h-full object-cover"
-                    />
-                </div>
-            )
-        }
-        <h1 class="text-3xl font-bold pb-4">{post.data.title}</h1>
-        <p class="text-xl italic pb-4">{post.data.description}</p>
-    </div>
+    <div class="flex flex-col items-center py-12 px-4">
+        <div class="w-full max-w-lg">
+            {
+                post.data.image && (
+                    <div class="w-full h-72 md:h-96 overflow-hidden rounded-xl border border-neutral-800 mb-6 shadow-lg">
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            class="w-full h-full object-cover"
+                        />
+                    </div>
+                )
+            }
+            <h1 class="text-3xl font-bold pb-4">{post.data.title}</h1>
+            <p class="text-xl italic pb-4">{post.data.description}</p>
 
-    <div class="flex items-center gap-x-3 mb-6">
-        <div class="flex items-center gap-x-1.5">
-            <Icon size={25} name="mdi:calendar" />
-            <p class="text-lg">
-                {post.data.pubDate.toLocaleDateString()}
-            </p>
-        </div>
-
-        <div class="flex items-center gap-x-1.5">
-            <Icon size={25} name="mdi:clock" />
-            <p class="text-lg">
-                {readingTime}
-            </p>
-        </div>
-
-        {
-            post.data.updatedDate && (
+            <div class="flex items-center gap-x-3 mb-6">
                 <div class="flex items-center gap-x-1.5">
-                    <Icon size={25} name="mdi:pencil" />
+                    <Icon size={25} name="mdi:calendar" />
                     <p class="text-lg">
-                        {post.data.updatedDate.toLocaleDateString()}
+                        {post.data.pubDate.toLocaleDateString()}
                     </p>
                 </div>
-            )
-        }
-    </div>
 
-    <PostOutdatedNotice
-        pubDate={post.data.pubDate}
-        updatedDate={post.data.updatedDate}
-    />
+                <div class="flex items-center gap-x-1.5">
+                    <Icon size={25} name="mdi:clock" />
+                    <p class="text-lg">
+                        {readingTime}
+                    </p>
+                </div>
 
-    <div class="prose prose-invert max-w-none pb-8">
-        <Content components={{ img: BlogPostImage }} />
+                {
+                    post.data.updatedDate && (
+                        <div class="flex items-center gap-x-1.5">
+                            <Icon size={25} name="mdi:pencil" />
+                            <p class="text-lg">
+                                {post.data.updatedDate.toLocaleDateString()}
+                            </p>
+                        </div>
+                    )
+                }
+            </div>
+
+            <PostOutdatedNotice
+                pubDate={post.data.pubDate}
+                updatedDate={post.data.updatedDate}
+            />
+
+            <div class="prose prose-invert max-w-none pb-8">
+                <Content components={{ img: BlogPostImage }} />
+            </div>
+        </div>
     </div>
 </Layout>
