@@ -46,40 +46,45 @@ const languages = [
 </div>
 
 <script>
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const card = entry.target;
-                const progressBar = card.querySelector('.skill-progress') as HTMLElement;
-                const percentageText = card.querySelector('.skill-percentage') as HTMLElement;
-                
-                const targetWidth = progressBar.getAttribute('data-width') || '0%';
-                const targetValue = parseInt(percentageText.getAttribute('data-target') || '0', 10);
+    function initSkillAnimations() {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const progressBar = card.querySelector('.skill-progress') as HTMLElement;
+                    const percentageText = card.querySelector('.skill-percentage') as HTMLElement;
+                    
+                    const targetWidth = progressBar.getAttribute('data-width') || '0%';
+                    const targetValue = parseInt(percentageText.getAttribute('data-target') || '0', 10);
 
-                setTimeout(() => {
-                    if (progressBar) progressBar.style.width = targetWidth;
-                }, 100);
+                    setTimeout(() => {
+                        if (progressBar) progressBar.style.width = targetWidth;
+                    }, 100);
 
-                let currentVal = 0;
-                const duration = 1000;
-                const incrementTime = 20;
-                const step = targetValue / (duration / incrementTime);
+                    let currentVal = 0;
+                    const duration = 1000;
+                    const incrementTime = 20;
+                    const step = targetValue / (duration / incrementTime);
 
-                const counter = setInterval(() => {
-                    currentVal += step;
-                    if (currentVal >= targetValue) {
-                        currentVal = targetValue;
-                        clearInterval(counter);
-                    }
-                    if (percentageText) percentageText.textContent = Math.round(currentVal) + '%';
-                }, incrementTime);
+                    const counter = setInterval(() => {
+                        currentVal += step;
+                        if (currentVal >= targetValue) {
+                            currentVal = targetValue;
+                            clearInterval(counter);
+                        }
+                        if (percentageText) percentageText.textContent = Math.round(currentVal) + '%';
+                    }, incrementTime);
 
-                observer.unobserve(card);
-            }
+                    observer.unobserve(card);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
         });
-    }, { threshold: 0.2 });
+    }
 
-    document.querySelectorAll('.skill-card').forEach(card => {
-        observer.observe(card);
-    });
+    // Runs on initial load AND every client-side page transition
+    document.addEventListener('astro:page-load', initSkillAnimations);
 </script>
