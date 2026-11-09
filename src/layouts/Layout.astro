@@ -31,12 +31,12 @@ const pageFade = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nick's site</title>
-    <ClientRouter />
+    <ClientRouter fallback="animate" />
 </head>
 <body class="bg-olive-950 text-white min-h-screen flex flex-col">
     <main class="flex-grow md:w-200 mx-auto pl-8 pr-8 w-full">
         <Navbar />
-        <div transition:animate={pageFade}>
+        <div class="page-fade-in" transition:animate={pageFade}>
             <slot />
         </div>
     </main>
@@ -49,21 +49,4 @@ const pageFade = {
         font-family: Geist, sans-serif;
     }
 
-  @keyframes fadeOut {
-    to {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 </style>
