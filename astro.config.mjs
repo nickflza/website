@@ -7,6 +7,7 @@ import { satteriHeadingLink } from "satteri-heading-link";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import vtbot from "astro-vtbot";
 
 export default defineConfig({
   site: 'https://nickflz.com',
@@ -30,15 +31,11 @@ export default defineConfig({
       ],
     }),
   },
-  integrations: [
-    mdx(),
-    sitemap(),
-    icon({
-      // Explicitly define your icon sources or include sets 
-      // so it doesn't default to scanning a local folder that hasn't been created yet.
-      include: {
-        'mdi:*': ['*']
-      }
-    })
-  ],
+  integrations: [mdx(), sitemap(), icon({
+    // Explicitly define your icon sources or include sets 
+    // so it doesn't default to scanning a local folder that hasn't been created yet.
+    include: {
+      'mdi:*': ['*']
+    }
+  }), vtbot()],
 });

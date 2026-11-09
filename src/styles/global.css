@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @import "./heading-links.css";
-@import "./anim.css";
 @plugin "@tailwindcss/typography";
+
+@theme {
+    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+}

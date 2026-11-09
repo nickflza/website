@@ -6,9 +6,7 @@ import GithubWorks from "../components/personal/GithubWorks.astro";
 
 <Layout>
     <div class="flex flex-col items-center py-12 px-4">
-        
         <div class="flex flex-col items-center text-center max-w-lg">
-
             <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
                 about me <span class="text-fuchsia-400">:3</span>
             </h1>
@@ -17,30 +15,7 @@ import GithubWorks from "../components/personal/GithubWorks.astro";
                 i'm nick, a 16 yo self-taught developer and student.
             </p>
         </div>
-
         <MySkills />
         <GithubWorks username="nickflza" limit={2} />
     </div>
 </Layout>
-
-<script>
-    document.querySelectorAll('.hobby-card').forEach((card) => {
-        const toggle = card.querySelector('.hobby-toggle');
-        const content = card.querySelector('.hobby-content') as HTMLElement;
-        const icon = card.querySelector('.hobby-icon') as HTMLElement;
-
-        toggle?.addEventListener('click', () => {
-            const isOpen = content.style.gridTemplateRows === '1fr';
-            
-            if (isOpen) {
-                content.style.gridTemplateRows = '0fr';
-                icon.style.transform = 'rotate(0deg)';
-                icon.classList.remove('text-fuchsia-400');
-            } else {
-                content.style.gridTemplateRows = '1fr';
-                icon.style.transform = 'rotate(180deg)';
-                icon.classList.add('text-fuchsia-400');
-            }
-        });
-    });
-</script>

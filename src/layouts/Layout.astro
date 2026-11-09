@@ -1,52 +1,58 @@
 ---
-// comment
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
-
-const fade = {
-  old: {
-    name: "fadeOut",
-    duration: "200ms",
-    easing: "ease-out",
-    fillMode: "forwards",
-  },
-  new: {
-    name: "fadeIn",
-    duration: "300ms",
-    easing: "ease-in",
-    fillMode: "both",
-  },
-};
-
-const pageFade = {
-  forwards: fade,
-  backwards: fade,
-};
 ---
 
-<head>
+<html lang="en">
+  <head>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nick's site</title>
-    <ClientRouter fallback="animate" />
-</head>
-<body class="bg-olive-950 text-white min-h-screen flex flex-col">
-    <main class="flex-grow md:w-200 mx-auto pl-8 pr-8 w-full">
-        <Navbar />
-        <div class="page-fade-in" transition:animate={pageFade}>
-            <slot />
-        </div>
+    <ClientRouter />
+  </head>
+
+  <body class="bg-olive-950 text-white min-h-screen flex flex-col antialiased">
+    <Navbar />
+
+    <main transition:animate="fade" class="flex-grow md:w-200 mx-auto pl-8 pr-8 w-full">
+      <slot />
     </main>
-</body>
+  </body>
+</html>
 
-<style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap");
+<script>
+  function setupScrollAnimations() {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px 0px 0px",
+      },
+    );
 
-    body {
-        font-family: Geist, sans-serif;
-    }
+    document.querySelectorAll(".reveal").forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const isAlreadyVisible =
+        rect.top <= window.innerHeight && rect.bottom >= 0;
 
-</style>
+      if (isAlreadyVisible) {
+        el.classList.add("active");
+      } else {
+        observer.observe(el);
+      }
+    });
+  }
+
+  // Astro view transitions use astro:page-load instead of DOMContentLoaded for page swaps
+  document.addEventListener("astro:page-load", setupScrollAnimations);
+</script>
