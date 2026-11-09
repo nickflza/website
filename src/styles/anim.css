@@ -1,20 +1,17 @@
-@layer utilities {
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(14px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translateY(-8px);
     }
+  }
 
-    .animate-fade-in {
-        animation: fadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
     }
-
-    .delay-100 { animation-delay: 150ms; }
-    .delay-200 { animation-delay: 300ms; }
-    .delay-300 { animation-delay: 450ms; }
-}
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
