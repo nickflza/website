@@ -1,3 +1,4 @@
 @import "tailwindcss";
 @import "./heading-links.css";
+@import "./anim.css";
 @plugin "@tailwindcss/typography";
