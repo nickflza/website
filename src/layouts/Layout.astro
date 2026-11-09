@@ -5,13 +5,17 @@ import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
 
 const pageFade = {
-  forwards: {
-    old: { name: "fadeOut", duration: "300ms", easing: "ease-in", fillMode: "forwards" },
-    new: { name: "fadeIn", duration: "700ms", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  old: {
+    name: "fadeOut",
+    duration: "300ms",
+    easing: "ease-in",
+    fillMode: "forwards",
   },
-  backwards: {
-    old: { name: "fadeOut", duration: "300ms", easing: "ease-in", fillMode: "forwards" },
-    new: { name: "fadeIn", duration: "700ms", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  new: {
+    name: "fadeIn",
+    duration: "700ms",
+    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+    fillMode: "both",
   },
 };
 ---
