@@ -1,5 +1,4 @@
 ---
-// test
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
@@ -42,10 +41,21 @@ const pageFade = {
     </main>
 </body>
 
-<style>
+<style is:global>
     @import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap");
 
     body {
         font-family: Geist, sans-serif;
+    }
+
+    /* Keyframes required for the custom fade transition object */
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 </style>
